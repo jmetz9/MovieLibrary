@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Assignment3_A4_JoshM
 {
@@ -10,22 +11,17 @@ namespace Assignment3_A4_JoshM
             string choice;
             do
             {
-                // ask user a question
                 Console.WriteLine("1) Read data from file.");
                 Console.WriteLine("2) Add a movie to the file.");
                 Console.WriteLine("Enter any other key to exit.");
-                // input response
                 choice = Console.ReadLine();
                 if (choice == "1")
                 {
-                    // read data from file
                     if (File.Exists(file))
                     {
-                        // read data from file
                         StreamReader sr = new StreamReader(file);
                         while (!sr.EndOfStream)
                         {
-                            //display data
                             string line = sr.ReadLine();
                             Console.WriteLine(line);
                         }
@@ -38,26 +34,72 @@ namespace Assignment3_A4_JoshM
                 }
                 else if (choice == "2")
                 {
-                    //ask for title
+                    
+
                     Console.WriteLine("Enter Movie Title:");
                     string title = Console.ReadLine();
-                    //ask for genres
+                    while (CompareTitle(title))
+                    {
+                        Console.WriteLine("Duplicate title, please retry.");
+                        title = Console.ReadLine();
+                    }
+                    
+                    string genre = "";
+                    string allGenres = "";
                     do
                     {
-                        string allGenres = "";
                         Console.WriteLine("Enter Movie Genre");
-                        string genre = Console.ReadLine();
+                        genre = Console.ReadLine();
                         allGenres = allGenres + genre + "|";
                         Console.WriteLine("Is there more genres?(Y/N)");
-                        string genreYN = Console.ReadLine();
-                        if(genreYN == "N"){
+                        string genreYN = Console.ReadLine().ToUpper();
+
+                        if (genreYN == "N")
+                        {
                             break;
                         }
-                    } while(true);
-                    //int id = the id of the last movie in the list + 1
-                    //append to the next line: id + "," + title + "," + allGenres
+                    } while (true);
+                    int id = GetLastId() + 1;
+                    StreamWriter sw = File.AppendText(file);
+                    sw.WriteLine(id + "," + title + "," + allGenres);
+                    sw.Close();
+
                 }
             } while (choice == "1" || choice == "2");
+        }
+
+        public static int GetLastId()
+        {
+
+            string file = "movies.csv";
+            StreamReader sr = new StreamReader(file);
+            string id = "0";
+
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                id = line.Substring(0, line.IndexOf(","));
+            }
+            sr.Close();
+            return Convert.ToInt32(id);
+        }
+
+        public static bool CompareTitle(string title)
+        {
+            string file = "movies.csv";
+            StreamReader sr = new StreamReader(file);
+            bool duplicate = false;
+
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                if (line.Contains(title))
+                {
+                    duplicate = true;
+                }
+            }
+            sr.Close();
+            return duplicate;
         }
     }
 }
