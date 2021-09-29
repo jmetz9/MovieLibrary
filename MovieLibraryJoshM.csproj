@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Assignment3_A4_JoshM</RootNamespace>
+    <RootNamespace>MovieLibraryJoshM</RootNamespace>
   </PropertyGroup>
 
 </Project>

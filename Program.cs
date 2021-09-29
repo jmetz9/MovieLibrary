@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Assignment3_A4_JoshM
+namespace MovieLibraryJoshM
 {
     class Program
     {
