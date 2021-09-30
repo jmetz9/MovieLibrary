@@ -60,6 +60,7 @@ namespace MovieLibraryJoshM
                         }
                     } while (true);
                     int id = GetLastId() + 1;
+                    //need to fix: appends to end of line not making a new line underneath
                     StreamWriter sw = File.AppendText(file);
                     sw.WriteLine(id + "," + title + "," + allGenres);
                     sw.Close();
@@ -93,6 +94,7 @@ namespace MovieLibraryJoshM
             while (!sr.EndOfStream)
             {
                 string line = sr.ReadLine();
+                //need to fix: looks at entire line not just the title
                 if (line.Contains(title))
                 {
                     duplicate = true;
