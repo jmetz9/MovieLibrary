@@ -60,9 +60,8 @@ namespace MovieLibraryJoshM
                         }
                     } while (true);
                     int id = GetLastId() + 1;
-                    //need to fix: appends to end of line not making a new line underneath
-                    StreamWriter sw = File.AppendText(file);
-                    sw.WriteLine(id + "," + title + "," + allGenres);
+                    StreamWriter sw = new StreamWriter(file, true);
+                    sw.WriteLine(Environment.NewLine + id + "," + title + "," + allGenres);
                     sw.Close();
 
                 }
@@ -94,8 +93,11 @@ namespace MovieLibraryJoshM
             while (!sr.EndOfStream)
             {
                 string line = sr.ReadLine();
+                int commaOne = line.IndexOf(',');
+                int commaTwo = line.LastIndexOf(',');
+                string title2 = line.Substring(commaOne + 1, commaTwo - commaOne - 1);
                 //need to fix: looks at entire line not just the title
-                if (line.Contains(title))
+                if (title2.Contains(title))
                 {
                     duplicate = true;
                 }
