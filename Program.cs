@@ -62,7 +62,8 @@ namespace MovieLibraryJoshM
                     } while (true);
                     int id = GetLastId() + 1;
                     StreamWriter sw = new StreamWriter(file, true);
-
+                    //the only way I can get this to work properly is by having an empty line on line 9127 of movies.csv
+                    //so if that isn't there you can add it
                     sw.WriteLine(id + "," + title + "," + allGenres);
 
                     sw.Close();
