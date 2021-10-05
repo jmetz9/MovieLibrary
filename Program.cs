@@ -9,6 +9,7 @@ namespace MovieLibraryJoshM
         {
             string file = "movies.csv";
             string choice;
+            //bool firstAdd = true;
             do
             {
                 Console.WriteLine("1) Read data from file.");
@@ -34,7 +35,7 @@ namespace MovieLibraryJoshM
                 }
                 else if (choice == "2")
                 {
-                    
+
 
                     Console.WriteLine("Enter Movie Title:");
                     string title = Console.ReadLine();
@@ -43,7 +44,7 @@ namespace MovieLibraryJoshM
                         Console.WriteLine("Duplicate title, please retry.");
                         title = Console.ReadLine();
                     }
-                    
+
                     string genre = "";
                     string allGenres = "";
                     do
@@ -60,9 +61,10 @@ namespace MovieLibraryJoshM
                         }
                     } while (true);
                     int id = GetLastId() + 1;
-                    //need to fix: appends to end of line not making a new line underneath
-                    StreamWriter sw = File.AppendText(file);
+                    StreamWriter sw = new StreamWriter(file, true);
+
                     sw.WriteLine(id + "," + title + "," + allGenres);
+
                     sw.Close();
 
                 }
@@ -94,8 +96,10 @@ namespace MovieLibraryJoshM
             while (!sr.EndOfStream)
             {
                 string line = sr.ReadLine();
-                //need to fix: looks at entire line not just the title
-                if (line.Contains(title))
+                int commaOne = line.IndexOf(',');
+                int commaTwo = line.LastIndexOf(',');
+                string title2 = line.Substring(commaOne + 1, commaTwo - commaOne);
+                if (title2.Contains(title))
                 {
                     duplicate = true;
                 }
