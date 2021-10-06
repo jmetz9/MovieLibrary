@@ -100,7 +100,7 @@ namespace MovieLibraryJoshM
                 int commaOne = line.IndexOf(',');
                 int commaTwo = line.LastIndexOf(',');
                 string title2 = line.Substring(commaOne + 1, commaTwo - commaOne);
-                if (title2.Contains(title))
+                if (title2.Equals(title))
                 {
                     duplicate = true;
                 }
