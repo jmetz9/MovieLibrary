@@ -5,9 +5,10 @@ namespace MovieLibraryJoshM
 {
     class Movie : Media
     {
-        string[] genres;
-        public override void Display(){
-            
+        string[] genres{get; set;}
+        public override string Display()
+        {
+            return $"Id:{id} Title:{title} Genres:{string.Join(", ", genres)}\n";
         }
     }
 }

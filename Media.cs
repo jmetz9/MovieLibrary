@@ -5,8 +5,16 @@ namespace MovieLibraryJoshM
 {
     abstract class Media
     { 
-        int id {get; set;}
-        string title {get; set;}
-        public abstract void Display();
+        public int id {get; set;}
+        //string _title;
+        public string title {
+            get{
+                return this.title;
+            }
+            set{
+                this.title = value.IndexOf(',') != -1 ? $"\"{value}\"" : value;
+            }
+        }
+        public abstract string Display();
     }
 }
