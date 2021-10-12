@@ -5,12 +5,12 @@ namespace MovieLibraryJoshM
 {
     class Show : Media
     {
-        int season { get; set; }
-        int episode { get; set; }
-        string[] writers{get; set;}
+        public int seasons { get; set; }
+        public int episodes { get; set; }
+        public string[] writers{get; set;}
         public override string Display()
         {
-            return $"Id:{id} Title:{title} Seasons:{season} Episodes:{episode} Writers:{string.Join(", ", writers)}\n";
+            return $"Id:{id} Title:{title} Seasons:{seasons} Episodes:{episodes} Writers:{string.Join("|", writers)}";
         }
     }
 }

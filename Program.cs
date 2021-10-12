@@ -7,106 +7,65 @@ namespace MovieLibraryJoshM
     {
         static void Main(string[] args)
         {
-            string file = "movies.csv";
             string choice;
-            //bool firstAdd = true;
+            MediaManager<Movie> movieMan = new MovieManager();
+            MediaManager<Show> showMan = new ShowManager();
+            MediaManager<Video> videoMan = new VideoManager();
             do
             {
                 Console.WriteLine("1) Read data from file.");
-                Console.WriteLine("2) Add a movie to the file.");
+                Console.WriteLine("2) Add a media to the file.");
                 Console.WriteLine("Enter any other key to exit.");
                 choice = Console.ReadLine();
                 if (choice == "1")
                 {
-                    if (File.Exists(file))
-                    {
-                        StreamReader sr = new StreamReader(file);
-                        while (!sr.EndOfStream)
-                        {
-                            string line = sr.ReadLine();
-                            Console.WriteLine(line);
-                        }
-                        sr.Close();
+                    Console.WriteLine("Which type of media? (M)ovie, (S)how, (V)ideo");
+                    choice = Console.ReadLine();
+                    switch(choice.ToLower()){
+                        case "m" :
+                        movieMan.DisplayAllMedia();
+
+                        break;
+
+                        case "s" :
+                        showMan.DisplayAllMedia();
+
+                        break;
+
+                        case "v" :
+                        videoMan.DisplayAllMedia();
+
+                        break; 
                     }
-                    else
-                    {
-                        Console.WriteLine("File does not exist");
-                    }
+                    
+                    
                 }
                 else if (choice == "2")
                 {
 
+                    Console.WriteLine("Which type of media? (M)ovie, (S)how, (V)ideo");
+                    choice = Console.ReadLine();
+                    switch(choice.ToLower()){
+                        case "m" :
+                        movieMan.AddMedia();
 
-                    Console.WriteLine("Enter Movie Title:");
-                    string title = Console.ReadLine();
-                    while (CompareTitle(title))
-                    {
-                        Console.WriteLine("Duplicate title, please retry.");
-                        title = Console.ReadLine();
+                        break;
+
+                        case "s" :
+                        showMan.AddMedia();
+
+                        break;
+
+                        case "v" :
+                        videoMan.AddMedia();
+
+                        break; 
                     }
-
-                    string genre = "";
-                    string allGenres = "";
-                    do
-                    {
-                        Console.WriteLine("Enter Movie Genre");
-                        genre = Console.ReadLine();
-                        allGenres = allGenres + genre + "|";
-                        Console.WriteLine("Is there more genres?(Y/N)");
-                        string genreYN = Console.ReadLine().ToUpper();
-
-                        if (genreYN == "N")
-                        {
-                            break;
-                        }
-                    } while (true);
-                    int id = GetLastId() + 1;
-                    StreamWriter sw = new StreamWriter(file, true);
-                    //the only way I can get this to work properly is by having an empty line after the last line of movies.csv
-                    //so if that isn't there you can add it
-                    sw.WriteLine(id + "," + title + "," + allGenres);
-
-                    sw.Close();
-
                 }
-            } while (choice == "1" || choice == "2");
+                Console.WriteLine("Anything else? N/Y");
+                choice = Console.ReadLine();
+            } while (choice.ToLower() == "y");
         }
 
-        public static int GetLastId()
-        {
-
-            string file = "movies.csv";
-            StreamReader sr = new StreamReader(file);
-            string id = "0";
-
-            while (!sr.EndOfStream)
-            {
-                string line = sr.ReadLine();
-                id = line.Substring(0, line.IndexOf(","));
-            }
-            sr.Close();
-            return Convert.ToInt32(id);
-        }
-
-        public static bool CompareTitle(string title)
-        {
-            string file = "movies.csv";
-            StreamReader sr = new StreamReader(file);
-            bool duplicate = false;
-
-            while (!sr.EndOfStream)
-            {
-                string line = sr.ReadLine();
-                int commaOne = line.IndexOf(',');
-                int commaTwo = line.LastIndexOf(',');
-                string title2 = line.Substring(commaOne + 1, commaTwo - commaOne);
-                if (title2.Equals(title))
-                {
-                    duplicate = true;
-                }
-            }
-            sr.Close();
-            return duplicate;
-        }
     }
 }
