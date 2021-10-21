@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MovieLibraryJoshM
 {
-    abstract class MediaManager<T> : IManager<T> where T : Media
+    abstract class JSONManager<T> : IManager<T> where T : Media
     { 
         public string file;
         public List<T> Media {get; set;}
