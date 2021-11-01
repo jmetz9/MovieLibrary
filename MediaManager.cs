@@ -56,5 +56,16 @@ namespace MovieLibraryJoshM
             return Media.Max(m => m.id);
 
         }
+
+        public int Search(string title){
+            var results = Media.Where(x=> x.title.ToUpper().Contains(title.ToUpper()));
+
+            foreach (Media media in results)
+            {
+                Console.WriteLine(media.Display());
+            }
+
+            return results.Count();
+        }
     }
 }

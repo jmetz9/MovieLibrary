@@ -15,6 +15,7 @@ namespace MovieLibraryJoshM
             {
                 Console.WriteLine("1) Read data from file.");
                 Console.WriteLine("2) Add a media to the file.");
+                Console.WriteLine("3) Search title.");
                 Console.WriteLine("Enter any other key to exit.");
                 choice = Console.ReadLine();
                 if (choice == "1")
@@ -61,6 +62,18 @@ namespace MovieLibraryJoshM
 
                         break; 
                     }
+                }
+                else if (choice == "3")
+                {
+                    Console.WriteLine("Enter Search Term:");
+                    string title = Console.ReadLine();
+                    Console.WriteLine("Movies: ");
+                    int movieNum = movieMan.Search(title);
+                    Console.WriteLine("Shows: ");
+                    int showNum = showMan.Search(title);
+                    Console.WriteLine("Videos: ");
+                    int videoNum = videoMan.Search(title);
+                    Console.WriteLine("# of results: " + (movieNum + showNum + videoNum));
                 }
                 Console.WriteLine("Anything else? N/Y");
                 choice = Console.ReadLine();
